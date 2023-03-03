@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
-import { getData } from '../utils/data';
+//BUG #16: getData is destructured in import when there is only one export in
+// utils/data
+import getData from '../utils/data';
 
 export default function Ingredients() {
   const ENDPOINT = 'Ingredients';
   const [ingredients, setIngredients] = useState([]);
+
+  //BUG #15: no data is fetched, leaving several functions unused
+  useEffect(() => {
+    let data = getLocalStorage(ENDPOINT);
+    if (data.length > 0) {
+      setIngredients(data);
+    } else {
+      getData(ENDPOINT)
+        .then((data) => {
+          setIngredients(data);
+          setLocalStorage(ENDPOINT, data);
+        })
+    }
+  }, []);
 
   return (
     <main style={{ padding: "1rem 0" }}>

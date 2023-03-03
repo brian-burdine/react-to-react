@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+//BUG #17: getData is not imported
+import getData from '../utils/data';
 
 export default function Wizards() {
   const ENDPOINT = 'Wizards';
-  const [wizards, setWizards] = useState();
+  //BUG #18: wizards is not initialized
+  const [wizards, setWizards] = useState([]);
   
   useEffect(() => {
     let data = getLocalStorage(ENDPOINT);
@@ -32,7 +35,8 @@ export default function Wizards() {
                 </tr>
               </thead>
               <tbody>
-                {wizards.map((wizard) => <Wizard key={wizard.id} />)}
+                {/*BUG #19: wizard is not passed into Wizard function*/}
+                {wizards.map((wizard) => <Wizard key={wizard.id} wizard={wizard} />)}
               </tbody>
             </table>
           </div>
@@ -41,7 +45,8 @@ export default function Wizards() {
   );
 }
 
-const Wizard = () => {
+//BUG #20: wizard is not deconstructed from props
+const Wizard = ({wizard}) => {
   return (
     <tr>
       <td>{`${wizard.firstName} ${wizard.lastName}`}</td>

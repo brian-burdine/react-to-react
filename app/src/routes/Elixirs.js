@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react';
-import { getData } from '../utils/data';
-import { getLocalStorage } from '../utils/localStorage';
+//BUG #09: useState is not imported
+import React, { useEffect, useState } from 'react';
+//BUG #05: getData is destructured in the import?
+import getData from '../utils/data';
+//BUG #08: setLocalStorage is not imported
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 export default function Elixirs() {
   const ENDPOINT = 'Elixirs';
+  //BUG #10: elixirs and setElixirs are not defined
+  const [elixirs, setElixirs] = useState([]);
   
   useEffect(() => {
     let data = getLocalStorage(ENDPOINT);
