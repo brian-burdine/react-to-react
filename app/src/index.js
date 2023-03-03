@@ -12,8 +12,13 @@ import './index.css';
 import App from './App';
 import Ingredients from './routes/Ingredients';
 import Wizards from './routes/Wizards';
+// BUG #02: Elixirs not imported
+import Elixirs from './routes/Elixirs';
+// BUG #03: Houses not imported
+import Houses from './routes/Houses';
 
-const root = ReactDOM.createRoot(document.getElementById("app")); // root element is in the index.html
+// BUG #01: div in index.html has id "root", not "app"
+const root = ReactDOM.createRoot(document.getElementById("root")); // root element is in the index.html
 root.render(
   <React.StrictMode>
     <BrowserRouter>
